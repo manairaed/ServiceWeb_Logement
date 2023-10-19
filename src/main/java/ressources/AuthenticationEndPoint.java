@@ -26,18 +26,18 @@ public class AuthenticationEndPoint {
     private UriInfo uriInfo;
 
     @POST
-    //@Produces(MediaType.TEXT_PLAIN)
-    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    //@Produces(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.APPLICATION_JSON)
     //// this is a first alternative (with formParam)
-    public Response authenticateUser(Credentials cred) {
+    public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
 
         try {
 
-            authenticate(cred.getUsername(), cred.getPassword());
+            authenticate(username, password);
 
-            String token = issueToken(cred.getUsername());
+            String token = issueToken(username);
 
             return Response.ok(token).build();
         } catch (Exception e) {
